@@ -1,15 +1,28 @@
 {
 	"name": "marcel",
+	"type": "module",
 	"version": "0.4.0",
 	"description": "A simple static site generator.",
-	"main": "src/marcel.js",
+	"main": "cli.js",
 	"repository": "git@github.com:marceljs/marcel.git",
 	"author": "Dan Burzo",
 	"license": "MIT",
 	"bin": {
-		"marcel": "./src/cli.js"
+		"marcel": "./cli.js"
 	},
 	"engines": {
 		"node": ">= 22.0.0"
+	},
+	"scripts": {
+		"prepare": "git config core.hooksPath .git-hooks",
+		"test": "node --test 'test/**/*.test.js'"
+	},
+	"devDependencies": {
+		"prettier": "^3.3.3",
+		"pretty-quick": "^4.0.0"
+	},
+	"dependencies": {
+		"js-yaml": "^4.1.0",
+		"nunjucks": "^3.2.4"
 	}
 }
