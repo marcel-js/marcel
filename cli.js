@@ -99,14 +99,21 @@ const datafiles = await Array.fromAsync(
 	)
 );
 
-const globalData = await datafiles.reduce(async (acc, file) => {
-	const res = await acc;
-	const attrs = /\.json$/.test(file) ? AS_JSON : undefined;
-	let value = (await import(resolve(config.datadir, file), attrs)).default;
-	if (typeof value === 'function') value = await value();
-	const key = file.replace(/\.js(on)?$/, '').split(sep);
-	setDeepValue(res, key, value);
-	return res;
+const dataValues = await Promise.all(
+	datafiles.map(async file => {
+		const attrs = /\.json$/.test(file) ? AS_JSON : undefined;
+		const value = (await import(resolve(config.datadir, file), attrs)).default;
+		return {
+			file,
+			value: typeof value === 'function' ? await value() : value
+		};
+	})
+);
+
+const globalData = dataValues.reduce((acc, it) => {
+	const key = it.file.replace(/\.js(on)?$/, '').split(sep);
+	setDeepValue(acc, key, it.value);
+	return acc;
 }, {});
 
 const NunjucksEnv = nunjucks.configure(config.templatesdir, {

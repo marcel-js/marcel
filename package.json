@@ -4,22 +4,13 @@
 	"version": "0.4.0",
 	"description": "A simple static site generator.",
 	"main": "cli.js",
-	"repository": "git@github.com:marceljs/marcel.git",
-	"author": "Dan Burzo",
+	"repository": "git@github.com:marcel-js/marcel.git",
 	"license": "MIT",
 	"bin": {
 		"marcel": "./cli.js"
 	},
-	"engines": {
-		"node": ">= 22.0.0"
-	},
 	"scripts": {
-		"prepare": "git config core.hooksPath .git-hooks",
 		"test": "node --test 'test/**/*.test.js'"
-	},
-	"devDependencies": {
-		"prettier": "^3.3.3",
-		"pretty-quick": "^4.0.0"
 	},
 	"dependencies": {
 		"js-yaml": "^4.1.0",
